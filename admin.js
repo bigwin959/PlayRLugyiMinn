@@ -13,12 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchData() {
     try {
         const res = await fetch('/api/data');
-        currentData = await res.json();
+        const data = await res.json();
+
+        if (data.error) {
+            if (data.error.includes('Missing Connection Settings')) {
+                alert('Connection Setup Required!\n\nPlease add GITHUB_TOKEN, REPO_OWNER, and REPO_NAME to your Netlify Site Settings (Environment Variables).');
+                return;
+            }
+            throw new Error(data.error);
+        }
+
+        currentData = data;
         renderSettings();
         renderGames();
     } catch (err) {
         console.error('Error fetching data:', err);
-        alert('Failed to load data.');
+        alert('Failed to load data. ' + err.message);
     }
 }
 
