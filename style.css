@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+
+:root {
+    --primary-red: #d7371b;
+    --primary-accent: #ff5e45;
+    /* Lighter red/orange for gradients */
+    --primary-dark: #8a1f10;
+    /* Darker red for depth */
+    --neon-gold: #ffd700;
+    --bg-dark: #050510;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(215, 55, 27, 0.3);
+    /* Reddish border */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(215, 55, 27, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 94, 69, 0.15) 0%, transparent 40%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.logo-container {
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.logo-img {
+    max-width: 250px;
+    filter: drop-shadow(0 0 20px rgba(215, 55, 27, 0.5));
+    animation: float 6s ease-in-out infinite;
+}
+
+.btn-random {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--primary-red), var(--primary-accent));
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(215, 55, 27, 0.4);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+}
+
+.btn-random::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: 0.5s;
+}
+
+.btn-random:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:
+        0 0 30px rgba(255, 94, 69, 0.6),
+        0 0 60px rgba(215, 55, 27, 0.4);
+}
+
+.btn-random:hover::before {
+    left: 100%;
+}
+
+.btn-random:active {
+    transform: translateY(2px) scale(0.98);
+}
+
+.game-card-container {
+    margin-top: 30px;
+    /* Remove fixed height to allow wrapping */
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* Wrap on mobile */
+}
+
+.provider-column {
+    flex: 1;
+    min-width: 300px;
+    /* Stack on mobile */
+    max-width: 350px;
+    /* Removed background and border for cleaner look */
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.column-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(215, 55, 27, 0.4);
+}
+
+.carousel-container {
+    position: relative;
+    height: 280px;
+    /* Reduced height */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    perspective: 800px;
+    /* Adjusted perspective for smaller scale */
+    overflow: hidden;
+}
+
+/* Hide scrollbar since we are using custom stacking */
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.game-card {
+    position: absolute;
+    width: 170px;
+    /* Reduced from 220px */
+    top: 15px;
+    left: 50%;
+    /* Center horizontally */
+    transform-origin: center bottom;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* Visuals */
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 12px;
+    /* Reduced padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+/* Stack Positions */
+
+/* Center Card */
+.game-card.card-active {
+    transform: translateX(-50%) translateZ(0) scale(1);
+    z-index: 10;
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(215, 55, 27, 0.3);
+    border-color: var(--primary-accent);
+}
+
+/* Left Card */
+.game-card.card-left {
+    transform: translateX(-100%) translateZ(-80px) scale(0.8) rotateY(15deg);
+    /* Tighter positioning */
+    z-index: 5;
+    opacity: 0.6;
+    filter: brightness(0.7);
+}
+
+/* Right Card */
+.game-card.card-right {
+    transform: translateX(0%) translateZ(-80px) scale(0.8) rotateY(-15deg);
+    /* Tighter positioning */
+    z-index: 5;
+    opacity: 0.6;
+    filter: brightness(0.7);
+}
+
+/* Hover effects for side cards */
+.game-card.card-left:hover,
+.game-card.card-right:hover {
+    opacity: 0.9;
+    filter: brightness(0.9);
+    transform: translateX(-100%) translateZ(-40px) scale(0.85) rotateY(10deg);
+}
+
+.game-card.card-right:hover {
+    transform: translateX(0%) translateZ(-40px) scale(0.85) rotateY(-10deg);
+}
+
+/* Animation for initial pop-in handled by script usually, but we keep basic transition */
+.game-card.show {
+    /* controlled by position classes now */
+}
+
+/* Stagger not needed for position swaps, built into transition */
+#card-jili.show,
+#card-pg.show,
+#card-pp.show {
+    animation-delay: 0s;
+}
+
+.game-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.game-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.game-card:hover .game-image {
+    transform: scale(1.1);
+}
+
+.game-title {
+    font-size: 1.1rem;
+    /* Reduced from 1.5rem */
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(to right, #fff, var(--neon-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+    min-height: 2.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.game-provider {
+    font-size: 0.7rem;
+    /* Reduced */
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.rtp-badge {
+    background: linear-gradient(45deg, var(--primary-red), var(--neon-gold));
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.rtp-badge.hidden {
+    display: none;
+}
+
+/* Jackpot / Win Animation */
+.game-card.card-active.winning {
+    animation: jackpotPulse 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 0 40px var(--neon-gold), 0 0 10px white;
+    z-index: 20;
+    /* Ensure it pops over everything */
+    border-color: var(--neon-gold);
+}
+
+.game-card.card-active.winning .game-title {
+    color: var(--neon-gold);
+    text-shadow: 0 0 10px var(--neon-gold);
+}
+
+/* Spin Blur Effect */
+.game-card.spinning .game-image {
+    filter: blur(2px) brightness(1.2);
+    transform: scale(0.95);
+    transition: none;
+    /* Instant updates */
+}
+
+@keyframes jackpotPulse {
+    0% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    40% {
+        transform: translateX(-50%) scale(1.15);
+        filter: brightness(1.3);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px) rotateX(-20deg) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0) scale(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Lock Button Styles */
+.lock-btn {
+    display: block;
+    margin: 15px auto 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--primary-red);
+    color: var(--primary-accent);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    /* Flex for icon/text alignment */
+    align-items: center;
+    gap: 8px;
+}
+
+.lock-btn:hover {
+    background: rgba(215, 55, 27, 0.2);
+    box-shadow: 0 0 10px rgba(215, 55, 27, 0.3);
+}
+
+.lock-btn.locked {
+    background: var(--neon-gold);
+    color: #000;
+    border-color: var(--neon-gold);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.lock-btn.locked .lock-icon {
+    content: "🔒";
+    /* We handle icon text change in JS, but this styles the state */
+}
+
+/* Dim locked column content slightly to indicate it's "safe" */
+.provider-column.locked-state .carousel-container {
+    opacity: 0.8;
+    filter: sepia(0.5);
+    /* Visual cue that it's frozen/golden */
+}
+
+/* Play Button Styles */
+.play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+    /* Spacing from lock button */
+    background: linear-gradient(135deg, var(--primary-red), var(--primary-dark));
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.play-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(215, 55, 27, 0.4);
+    background: linear-gradient(135deg, var(--primary-accent), var(--primary-red));
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.play-btn:active {
+    transform: translateY(1px);
+}
+
+.play-icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}

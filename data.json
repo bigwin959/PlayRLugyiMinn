@@ -1,0 +1,157 @@
+{
+  "siteSettings": {
+    "title": "ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်",
+    "randomBtnText": "ဂိမ်းရွေးရန်",
+    "contactLink": "https://www.lugyiminn.com"
+  },
+  "games": [
+    {
+      "name": "Super Ace",
+      "image": "assets/super_ace.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Golden Empire",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Money Coming",
+      "image": "assets/money_coming.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Super Ace Deluxe",
+      "image": "assets/super_ace.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Golden Empire 2",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Money Coming 2",
+      "image": "assets/money_coming.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Crazy 777",
+      "image": "assets/money_coming.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Fortune Gems",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Boxing King",
+      "image": "assets/super_ace.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Roma X",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Jungle King",
+      "image": "assets/money_coming.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Ali Baba",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Dragon Treasure",
+      "image": "assets/super_ace.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Mega Fishing",
+      "image": "assets/money_coming.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Jackpot Fishing",
+      "image": "assets/super_ace.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Royal Fishing",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Dinosaur Tycoon",
+      "image": "assets/money_coming.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Boom Legend",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Happy Taxi",
+      "image": "assets/super_ace.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Book of Gold",
+      "image": "assets/golden_empire.png",
+      "provider": "JILI"
+    },
+    {
+      "name": "Wild Bounty Showdown",
+      "image": "assets/wild_bounty_showdown.png",
+      "provider": "PG Soft",
+      "rtp": "96.75%"
+    },
+    {
+      "name": "Treasure of Aztec",
+      "image": "assets/treasure_of_aztec.png",
+      "provider": "PG Soft",
+      "rtp": "96.71%"
+    },
+    {
+      "name": "Chicky Run",
+      "image": "assets/chicky_run.png",
+      "provider": "PG Soft",
+      "rtp": "96.71%"
+    },
+    {
+      "name": "Wild Bandito",
+      "image": "assets/wild_bandito.png",
+      "provider": "PG Soft",
+      "rtp": "96.73%"
+    },
+    {
+      "name": "Gates of Olympus",
+      "image": "assets/gates_of_olympus.png",
+      "provider": "PP Slot",
+      "rtp": "96.50%"
+    },
+    {
+      "name": "Sweet Bonanza",
+      "image": "assets/sweet_bonanza.png",
+      "provider": "PP Slot",
+      "rtp": "96.48%"
+    },
+    {
+      "name": "Sugar Rush",
+      "image": "assets/sugar_rush.png",
+      "provider": "PP Slot",
+      "rtp": "96.50%"
+    },
+    {
+      "name": "The Dog House",
+      "image": "assets/the_dog_house.png",
+      "provider": "PP Slot",
+      "rtp": "96.51%"
+    }
+  ]
+}

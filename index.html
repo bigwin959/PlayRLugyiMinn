@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Game Picker LugyiMinn</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/logo.png" type="image/x-icon">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Jili Games Logo" class="logo-img">
+        </div>
+        <h1>ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်</h1>
+        <button id="playRandomBtn" class="btn-random">
+            ဂိမ်းရွေးရန်
+        </button>
+
+        <div class="game-card-container" id="resultsContainer">
+
+            <!-- JILI Column -->
+            <div class="provider-column">
+                <h3 class="column-title">JILI</h3>
+                <div class="carousel-container" id="carousel-jili"></div>
+                <button class="lock-btn" id="lock-jili" data-target="jili">
+                    <span class="lock-icon">🔓</span> Unlock
+                </button>
+                <a href="https://www.lugyiminn.com" target="_blank" class="play-btn" id="play-jili">
+                    <span class="play-icon">🎮</span> ကစားမယ်
+                </a>
+            </div>
+
+            <!-- PG Column -->
+            <div class="provider-column">
+                <h3 class="column-title">PG Soft</h3>
+                <div class="carousel-container" id="carousel-pg"></div>
+                <button class="lock-btn" id="lock-pg" data-target="pg">
+                    <span class="lock-icon">🔓</span> Unlock
+                </button>
+                <a href="https://www.lugyiminn.com" target="_blank" class="play-btn" id="play-pg">
+                    <span class="play-icon">🎮</span> ကစားမယ်
+                </a>
+            </div>
+
+            <!-- PP Column -->
+            <div class="provider-column">
+                <h3 class="column-title">PP Slot</h3>
+                <div class="carousel-container" id="carousel-pp"></div>
+                <button class="lock-btn" id="lock-pp" data-target="pp">
+                    <span class="lock-icon">🔓</span> Unlock
+                </button>
+                <a href="https://www.lugyiminn.com" target="_blank" class="play-btn" id="play-pp">
+                    <span class="play-icon">🎮</span> ကစားမယ်
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Data Source -->
+    <!-- Data Source: Loaded dynamically via script.js -->
+    <!-- App Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
