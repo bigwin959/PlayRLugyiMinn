@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Initialize App with fetched games
             initApp(games);
+            initFloatingIcons(games);
         })
         .catch(err => {
             console.error('Error loading game data:', err);
@@ -396,6 +397,44 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             return card;
+        }
+    }
+
+    // --- Floating Icons Logic ---
+    function initFloatingIcons(games) {
+        const container = document.getElementById('floating-icons-container');
+        if (!container || !games || games.length === 0) return;
+
+        const iconCount = 15; // Number of floating icons
+
+        for (let i = 0; i < iconCount; i++) {
+            createFloatingIcon(i);
+        }
+
+        function createFloatingIcon(index) {
+            const icon = document.createElement('img');
+            const randomGame = games[Math.floor(Math.random() * games.length)];
+            icon.src = randomGame.image;
+            icon.className = 'floating-icon';
+
+            // Randomize properties
+            const size = Math.random() * 60 + 40; // 40px to 100px
+            const left = Math.random() * 100; // 0% to 100%
+            const duration = Math.random() * 15 + 15; // 15s to 30s
+            const delay = Math.random() * -20; // Start at different times
+            const direction = Math.random() > 0.5 ? 'floatUp' : 'floatDown';
+
+            icon.style.width = `${size}px`;
+            icon.style.height = `${size}px`;
+            icon.style.left = `${left}%`;
+            icon.style.animation = `${direction} ${duration}s linear infinite`;
+            icon.style.animationDelay = `${delay}s`;
+
+            // Random initial position (vertical) to fill screen immediately
+            // We set a negative delay above which helps, but let's also ensure distribution
+            // Actually animation-delay with negative values handles "mid-animation" start perfectly.
+
+            container.appendChild(icon);
         }
     }
 });
