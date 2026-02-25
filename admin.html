@@ -4,97 +4,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - PlayRLugyiMinn</title>
-    <link rel="stylesheet" href="admin.css">
+    <title>Admin Panel - LugyiMinn</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --container-bg: #161b22;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+            --primary-color: #58a6ff;
+            --success-color: #238636;
+            --danger-color: #da3633;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        h1,
+        h2 {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="color"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: #fff;
+        }
+
+        .game-item {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .game-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .game-details {
+            flex-grow: 1;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container">
-        <header>
-            <h1>Admin Panel</h1>
-            <a href="/" target="_blank" style="color: var(--accent-color); text-decoration: none;">View Site &rarr;</a>
-        </header>
+        <h1>Admin Panel</h1>
 
-        <!-- Site Settings Section -->
-        <div class="section">
-            <h2>Site Settings</h2>
-            <div class="form-group">
-                <label for="siteTitle">Page Title (H1)</label>
-                <input type="text" id="siteTitle">
-            </div>
-            <div class="form-group">
-                <label for="randomBtnText">Random Button Text</label>
-                <input type="text" id="randomBtnText">
-            </div>
-            <div class="form-group">
-                <label for="contactLink">Universal Play Link</label>
-                <input type="url" id="contactLink">
-            </div>
-            <button id="saveSettingsBtn" class="btn-success">Save Settings</button>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('config')">Site Config</button>
+            <button class="tab-btn" onclick="showTab('games')">Games Manager</button>
         </div>
 
-        <!-- Game Management Section -->
-        <div class="section">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Game Management</h2>
-                <button id="addGameBtn" class="btn-primary">+ Add New Game</button>
+        <!-- Site Configuration -->
+        <div id="config" class="tab-content active">
+            <h2>General Settings</h2>
+            <div class="form-group">
+                <label>Page Title</label>
+                <input type="text" id="pageTitle">
+            </div>
+            <div class="form-group">
+                <label>Header Title</label>
+                <input type="text" id="headerTitle">
+            </div>
+            <div class="form-group">
+                <label>Play Button Text</label>
+                <input type="text" id="playButtonText">
+            </div>
+            <div class="form-group">
+                <label>Call to Action URL</label>
+                <input type="text" id="ctaUrl">
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Provider</th>
-                        <th>RTP</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="gamesTableBody">
-                    <!-- Dynamic Content -->
-                </tbody>
-            </table>
+            <h2>Colors (Live Preview)</h2>
+            <div class="form-group">
+                <label>Primary Color (Red)</label>
+                <input type="color" id="primaryColor">
+            </div>
+            <div class="form-group">
+                <label>Secondary Color (Light Red)</label>
+                <input type="color" id="secondaryColor">
+            </div>
+            <div class="form-group">
+                <label>Accent Color (Gold)</label>
+                <input type="color" id="accentColor">
+            </div>
         </div>
+
+        <!-- Games Manager -->
+        <div id="games" class="tab-content">
+            <h2>Manage Games</h2>
+            <div class="form-group">
+                <button class="btn-primary" onclick="window.scrollTo(0, document.body.scrollHeight)">+ Add New
+                    Game</button>
+            </div>
+            <div id="gamesList"></div>
+
+            <h3>Add New Game</h3>
+            <div class="game-item">
+                <div class="game-details">
+                    <input type="text" id="newGameName" placeholder="Game Name">
+                    <input type="text" id="newGameImage" placeholder="Image Path (e.g., assets/img.png)">
+                    <select id="newGameProvider">
+                        <option value="JILI">JILI</option>
+                        <option value="PG Soft">PG Soft</option>
+                        <option value="PP Slot">PP Slot</option>
+                    </select>
+                    <input type="text" id="newGameRTP" placeholder="RTP (e.g., 96.5%)">
+                </div>
+                <button class="btn-success" onclick="addNewGame()">Add</button>
+            </div>
+        </div>
+
+        <hr>
+        <button class="btn-success" style="width: 100%; font-size: 1.2em;" onclick="saveChanges()">SAVE CHANGES</button>
     </div>
 
-    <!-- Edit/Add Modal -->
-    <div id="gameModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Edit Game</h3>
-                <button id="closeModalBtn" class="close-btn">&times;</button>
-            </div>
-            <form id="gameForm" onsubmit="event.preventDefault();">
-                <div class="form-group">
-                    <label for="gameName">Game Name</label>
-                    <input type="text" id="gameName" required>
-                </div>
-                <div class="form-group">
-                    <label for="gameImage">Image Path</label>
-                    <input type="text" id="gameImage" placeholder="assets/game.png" required>
-                </div>
-                <div class="form-group">
-                    <label for="gameProvider">Provider</label>
-                    <input type="text" id="gameProvider" list="providers" required>
-                    <datalist id="providers">
-                        <option value="JILI">
-                        <option value="PG Soft">
-                        <option value="PP Slot">
-                    </datalist>
-                </div>
-                <div class="form-group">
-                    <label for="gameRtp">RTP (Optional)</label>
-                    <input type="text" id="gameRtp" placeholder="96.50%">
-                </div>
-                <div style="text-align: right; margin-top: 20px;">
-                    <button type="button" id="saveGameBtn" class="btn-primary">Save Game</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <div id="toast" class="toast">Saved Successfully!</div>
 
-    <script src="admin.js"></script>
+    <script>
+        let currentData = {};
+
+        // 1. Fetch Data on Load
+        async function init() {
+            try {
+                const res = await fetch('data.json');
+                currentData = await res.json();
+                populateForm();
+                renderGames();
+            } catch (e) {
+                console.error(e);
+                alert("Error loading data.json");
+            }
+        }
+
+        function populateForm() {
+            // Config
+            document.getElementById('pageTitle').value = currentData.siteConfig.pageTitle || '';
+            document.getElementById('headerTitle').value = currentData.siteConfig.headerTitle || '';
+            document.getElementById('playButtonText').value = currentData.siteConfig.playButtonText || '';
+            document.getElementById('ctaUrl').value = currentData.siteConfig.ctaUrl || '';
+
+            // Colors
+            document.getElementById('primaryColor').value = currentData.siteConfig.colors?.primary || '#00f3ff';
+            document.getElementById('secondaryColor').value = currentData.siteConfig.colors?.secondary || '#bc13fe';
+            document.getElementById('accentColor').value = currentData.siteConfig.colors?.accent || '#ffd700';
+        }
+
+        function renderGames() {
+            const list = document.getElementById('gamesList');
+            list.innerHTML = '';
+            currentData.games.forEach((game, index) => {
+                const div = document.createElement('div');
+                div.className = 'game-item';
+                div.innerHTML = `
+                <img src="${game.image}" alt="img">
+                <div class="game-details">
+                    <strong>${game.name}</strong><br>
+                    <small>${game.provider} | RTP: ${game.rtp || 'Auto'}</small>
+                </div>
+                <button class="btn-danger" onclick="removeGame(${index})">Remove</button>
+            `;
+                list.appendChild(div);
+            });
+        }
+
+        function addNewGame() {
+            const name = document.getElementById('newGameName').value;
+            const image = document.getElementById('newGameImage').value;
+            const provider = document.getElementById('newGameProvider').value;
+            const rtp = document.getElementById('newGameRTP').value;
+
+            if (!name || !image) return alert("Name and Image are required");
+
+            const newGame = { name, image, provider };
+            if (rtp) newGame.rtp = rtp;
+
+            currentData.games.push(newGame);
+            renderGames();
+
+            // Clear inputs
+            document.getElementById('newGameName').value = '';
+            document.getElementById('newGameImage').value = '';
+            document.getElementById('newGameRTP').value = '';
+        }
+
+        function removeGame(index) {
+            if (confirm('Delete this game?')) {
+                currentData.games.splice(index, 1);
+                renderGames();
+            }
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // 2. Save Data
+        async function saveChanges() {
+            const btn = document.querySelector('button[onclick="saveChanges()"]');
+            const oldText = btn.innerText;
+            btn.innerText = "Saving...";
+            btn.disabled = true;
+
+            // Collect Config Data
+            currentData.siteConfig.pageTitle = document.getElementById('pageTitle').value;
+            currentData.siteConfig.headerTitle = document.getElementById('headerTitle').value;
+            currentData.siteConfig.playButtonText = document.getElementById('playButtonText').value;
+            currentData.siteConfig.ctaUrl = document.getElementById('ctaUrl').value;
+
+            currentData.siteConfig.colors = {
+                primary: document.getElementById('primaryColor').value,
+                secondary: document.getElementById('secondaryColor').value,
+                accent: document.getElementById('accentColor').value,
+                background: "#050505" // Keep constant for now
+            };
+
+            try {
+                const res = await fetch('/.netlify/functions/save-data', {
+                    method: 'POST',
+                    body: JSON.stringify({ payload: currentData })
+                });
+
+                const result = await res.json();
+                if (res.ok) {
+                    showToast("Saved Successfully! Changes will appear after build (approx 1 min).");
+                } else {
+                    alert("Error saving: " + (result.error || result.message));
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Network Error");
+            }
+
+            btn.innerText = oldText;
+            btn.disabled = false;
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        init();
+    </script>
+
 </body>
 
 </html>

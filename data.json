@@ -1,8 +1,18 @@
 {
-  "siteSettings": {
-    "title": "ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်",
-    "randomBtnText": "ဂိမ်းရွေးရန်",
-    "contactLink": "https://www.lugyiminn.com"
+  "siteConfig": {
+    "pageTitle": "ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်",
+    "headerTitle": "ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်",
+    "playButtonText": "ဂိမ်းရွေးရန်",
+    "ctaUrl": "https://www.lugyiminn.com",
+    "ctaText": "ကစားမယ်",
+    "lockTextOpen": "Unlock",
+    "lockTextClosed": "LOCKED",
+    "colors": {
+      "primary": "#d7371b",
+      "secondary": "#ff5e45",
+      "accent": "#ffd700",
+      "background": "#050510"
+    }
   },
   "games": [
     {

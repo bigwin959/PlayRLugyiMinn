@@ -3,14 +3,11 @@
 :root {
     --primary-red: #d7371b;
     --primary-accent: #ff5e45;
-    /* Lighter red/orange for gradients */
     --primary-dark: #8a1f10;
-    /* Darker red for depth */
     --neon-gold: #ffd700;
     --bg-dark: #050510;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(215, 55, 27, 0.3);
-    /* Reddish border */
 }
 
 * {
@@ -22,10 +19,17 @@
 body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-dark);
-    background-image:
-        radial-gradient(circle at 10% 20%, rgba(215, 55, 27, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(255, 94, 69, 0.15) 0%, transparent 40%);
     color: white;
+}
+
+#bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -41,6 +45,7 @@ body {
     width: 100%;
     max-width: 1000px;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .logo-container {
@@ -49,17 +54,29 @@ body {
 }
 
 .logo-img {
-    max-width: 250px;
+    max-width: 175px;
     filter: drop-shadow(0 0 20px rgba(215, 55, 27, 0.5));
     animation: float 6s ease-in-out infinite;
 }
 
+#mainTitle {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        max-width: 140px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+}
+
 .btn-random {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 18px 40px;
+    padding: 14px 32px;
     border: none;
     border-radius: 50px;
     background: linear-gradient(90deg, var(--primary-red), var(--primary-accent));
@@ -100,70 +117,132 @@ body {
 
 .game-card-container {
     margin-top: 30px;
-    /* Remove fixed height to allow wrapping */
     min-height: 400px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
     flex-wrap: wrap;
-    /* Wrap on mobile */
 }
 
 .provider-column {
     flex: 1;
     min-width: 300px;
-    /* Stack on mobile */
     max-width: 350px;
-    /* Removed background and border for cleaner look */
     border-radius: 20px;
     padding: 15px;
 }
 
-.column-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+.provider-nav-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto 20px;
+    width: 100%;
+    max-width: 650px;
+    gap: 10px;
+}
+
+.provider-titles-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: relative;
+    height: 60px;
+    width: 100%;
+    max-width: 400px;
+    perspective: 500px;
+}
+
+.nav-arrow {
+    background: transparent;
+    border: none;
     color: var(--primary-accent);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.nav-arrow svg {
+    width: 45px;
+    height: 45px;
+    filter: drop-shadow(0 0 10px rgba(215, 55, 27, 0.5));
+}
+
+.nav-arrow:hover {
+    transform: scale(1.15);
+    color: var(--primary-red);
+}
+
+.title-item {
+    position: absolute;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(215, 55, 27, 0.4);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    white-space: nowrap;
+    text-shadow: 0 0 10px rgba(215, 55, 27, 0.2);
+}
+
+.title-item.active {
+    font-size: 2rem;
+    color: var(--primary-accent);
+    transform: translateX(0) scale(1);
+    z-index: 10;
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(215, 55, 27, 0.6);
+}
+
+.title-item.left {
+    font-size: 1.2rem;
+    color: #cccccc;
+    transform: translate(-90px, 35px) scale(0.75);
+    z-index: 1;
+    opacity: 1;
+}
+
+.title-item.right {
+    font-size: 1.2rem;
+    color: #cccccc;
+    transform: translate(90px, 35px) scale(0.75);
+    z-index: 1;
+    opacity: 1;
 }
 
 .carousel-container {
     position: relative;
-    height: 280px;
-    /* Reduced height */
+    height: 470px;
     width: 100%;
     display: flex;
     justify-content: center;
     perspective: 800px;
-    /* Adjusted perspective for smaller scale */
-    /* overflow: hidden; REMOVED for shadow visibility */
+    overflow: visible;
 }
 
-/* Hide scrollbar since we are using custom stacking */
 .carousel-container::-webkit-scrollbar {
     display: none;
 }
 
 .game-card {
     position: absolute;
-    width: 170px;
-    /* Reduced from 220px */
+    width: 312px;
+    min-height: 403px;
     top: 15px;
     left: 50%;
-    /* Center horizontally */
     transform-origin: center bottom;
     transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-
-    /* Visuals */
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 15px;
     padding: 12px;
-    /* Reduced padding */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -171,9 +250,6 @@ body {
     cursor: pointer;
 }
 
-/* Stack Positions */
-
-/* Center Card */
 .game-card.card-active {
     transform: translateX(-50%) translateZ(0) scale(1);
     z-index: 10;
@@ -182,25 +258,20 @@ body {
     border-color: var(--primary-accent);
 }
 
-/* Left Card */
 .game-card.card-left {
     transform: translateX(-100%) translateZ(-80px) scale(0.8) rotateY(15deg);
-    /* Tighter positioning */
     z-index: 5;
     opacity: 0.6;
     filter: brightness(0.7);
 }
 
-/* Right Card */
 .game-card.card-right {
     transform: translateX(0%) translateZ(-80px) scale(0.8) rotateY(-15deg);
-    /* Tighter positioning */
     z-index: 5;
     opacity: 0.6;
     filter: brightness(0.7);
 }
 
-/* Hover effects for side cards */
 .game-card.card-left:hover,
 .game-card.card-right:hover {
     opacity: 0.9;
@@ -210,18 +281,6 @@ body {
 
 .game-card.card-right:hover {
     transform: translateX(0%) translateZ(-40px) scale(0.85) rotateY(-10deg);
-}
-
-/* Animation for initial pop-in handled by script usually, but we keep basic transition */
-.game-card.show {
-    /* controlled by position classes now */
-}
-
-/* Stagger not needed for position swaps, built into transition */
-#card-jili.show,
-#card-pg.show,
-#card-pp.show {
-    animation-delay: 0s;
 }
 
 .game-image-wrapper {
@@ -248,7 +307,6 @@ body {
 
 .game-title {
     font-size: 1.1rem;
-    /* Reduced from 1.5rem */
     font-weight: 700;
     text-align: center;
     background: linear-gradient(to right, #fff, var(--neon-gold));
@@ -270,14 +328,6 @@ body {
     margin-top: auto;
 }
 
-.game-provider {
-    font-size: 0.7rem;
-    /* Reduced */
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
 .rtp-badge {
     background: linear-gradient(45deg, var(--primary-red), var(--neon-gold));
     padding: 5px 10px;
@@ -292,12 +342,10 @@ body {
     display: none;
 }
 
-/* Jackpot / Win Animation */
 .game-card.card-active.winning {
     animation: jackpotPulse 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: 0 0 40px var(--neon-gold), 0 0 10px white;
     z-index: 20;
-    /* Ensure it pops over everything */
     border-color: var(--neon-gold);
 }
 
@@ -306,12 +354,10 @@ body {
     text-shadow: 0 0 10px var(--neon-gold);
 }
 
-/* Spin Blur Effect */
 .game-card.spinning .game-image {
     filter: blur(2px) brightness(1.2);
     transform: scale(0.95);
     transition: none;
-    /* Instant updates */
 }
 
 @keyframes jackpotPulse {
@@ -329,18 +375,6 @@ body {
     }
 }
 
-@keyframes popIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-50px) rotateX(-20deg) scale(0.8);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0) scale(1);
-    }
-}
-
 @keyframes float {
 
     0%,
@@ -353,132 +387,222 @@ body {
     }
 }
 
-/* Lock Button Styles */
-.lock-btn {
-    display: block;
-    margin: 15px auto 0;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--primary-red);
-    color: var(--primary-accent);
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: 'Outfit', sans-serif;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-    display: flex;
-    /* Flex for icon/text alignment */
-    align-items: center;
-    gap: 8px;
+@media (max-width: 768px) {
+    .game-card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .provider-column {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 40px;
+    }
+
+    .carousel-container {
+        height: 340px;
+    }
+
+    .btn-random {
+        width: 80%;
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
 }
 
-.lock-btn:hover {
-    background: rgba(215, 55, 27, 0.2);
-    box-shadow: 0 0 10px rgba(215, 55, 27, 0.3);
-}
-
-.lock-btn.locked {
-    background: var(--neon-gold);
-    color: #000;
-    border-color: var(--neon-gold);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-}
-
-.lock-btn.locked .lock-icon {
-    content: "🔒";
-    /* We handle icon text change in JS, but this styles the state */
-}
-
-/* Dim locked column content slightly to indicate it's "safe" */
-.provider-column.locked-state .carousel-container {
-    opacity: 0.8;
-    filter: sepia(0.5);
-    /* Visual cue that it's frozen/golden */
-}
-
-/* Play Button Styles */
-.play-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 15px;
-    /* Spacing from lock button */
-    background: linear-gradient(135deg, var(--primary-red), var(--primary-dark));
-    color: white;
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.play-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(215, 55, 27, 0.4);
-    background: linear-gradient(135deg, var(--primary-accent), var(--primary-red));
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.play-btn:active {
-    transform: translateY(1px);
-}
-
-.play-icon {
-    font-size: 1.2rem;
-    margin-right: 8px;
-
-}
-
-/* Floating Background Icons */
-#floating-icons-container {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 40;
+    opacity: 0;
     pointer-events: none;
-    overflow: hidden;
-    /* Ensure icons don't cause scrollbars */
+    transition: opacity 0.5s ease;
 }
 
-.floating-icon {
+body.modal-open .modal-overlay {
+    opacity: 1;
+    pointer-events: all;
+}
+
+body.modal-open .carousel-container {
+    perspective: none;
+    z-index: 50;
+}
+
+body.modal-open .game-card:not(.super-win) {
+    opacity: 0 !important;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.game-card.card-active.super-win {
+    animation: superWinPopup 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    box-shadow: 0 0 50px var(--neon-gold), 0 0 20px white;
+    border-color: var(--neon-gold);
+    position: fixed;
+    z-index: 50;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) !important;
+}
+
+@keyframes superWinPopup {
+    0% {
+        transform: translateX(-50%) translateY(50px) scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(0) scale(1.1);
+        opacity: 1;
+        filter: brightness(1);
+    }
+}
+
+.card-mini-logo {
+    display: none;
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 80px;
+    z-index: 60;
+    filter: drop-shadow(0 0 10px rgba(215, 55, 27, 0.5));
+    margin-bottom: 15px;
+}
+
+.card-close-btn {
     position: absolute;
-    opacity: 0.15;
-    /* Low opacity for subtle background */
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    filter: grayscale(0.5);
-    /* Make them less distracting */
-    will-change: transform;
+    top: -15px;
+    right: -15px;
+    width: 35px;
+    height: 35px;
+    background: var(--primary-red);
+    color: white;
+    border: 2px solid var(--neon-gold);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 60;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Float Up Animation */
-@keyframes floatUp {
+.card-close-btn:hover {
+    background: var(--primary-accent);
+    transform: scale(1.1);
+}
+
+.game-card.card-active.super-win .card-mini-logo {
+    display: block;
+}
+
+.game-card.card-active.super-win .card-close-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notifications-container {
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    transition: all 0.5s ease;
+}
+
+.game-card.card-active.super-win .notifications-container {
+    height: 75px;
+    opacity: 1;
+    margin-top: 8px;
+}
+
+.card-play-btn {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    width: 90%;
+    background: linear-gradient(135deg, var(--primary-red), var(--primary-dark));
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 0;
+}
+
+.game-card.card-active.super-win .card-play-btn {
+    height: 35px;
+    opacity: 1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.scrolling-winners-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    animation: scrollInfinite 6s linear infinite;
+}
+
+.fake-notification {
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    padding: 0 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    height: 25px;
+}
+
+.fake-notification .name {
+    color: #ddd;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+}
+
+.fake-notification .amount {
+    color: var(--neon-gold);
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@keyframes scrollInfinite {
     0% {
-        transform: translateY(110vh) rotate(0deg);
+        transform: translateY(0);
     }
 
     100% {
-        transform: translateY(-20vh) rotate(360deg);
-    }
-}
-
-/* Float Down Animation */
-@keyframes floatDown {
-    0% {
-        transform: translateY(-20vh) rotate(0deg);
-    }
-
-    100% {
-        transform: translateY(110vh) rotate(-360deg);
+        transform: translateY(-125px);
     }
 }

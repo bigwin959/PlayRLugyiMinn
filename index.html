@@ -12,56 +12,43 @@
 </head>
 
 <body>
-    <div id="floating-icons-container"></div>
+    <canvas id="bgCanvas"></canvas>
 
     <div class="container">
+        <div id="modalOverlay" class="modal-overlay"></div>
         <div class="logo-container">
-            <img src="assets/logo.png" alt="Jili Games Logo" class="logo-img">
+            <img src="assets/logo.png" alt="LugyiMinn Logo" class="logo-img">
         </div>
-        <h1>ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်</h1>
+        <h1 id="mainTitle">ဒီနေ့အတွက် နိုင်ချေမြင့်ဂိမ်း ကစားရန်</h1>
         <button id="playRandomBtn" class="btn-random">
             ဂိမ်းရွေးရန်
         </button>
 
-        <div class="game-card-container" id="resultsContainer">
-
-            <!-- JILI Column -->
-            <div class="provider-column">
-                <h3 class="column-title">JILI</h3>
-                <div class="carousel-container" id="carousel-jili"></div>
-                <button class="lock-btn" id="lock-jili" data-target="jili">
-                    <span class="lock-icon">🔓</span> Unlock
-                </button>
-                <a href="https://www.lugyiminn.com" target="_blank" class="play-btn" id="play-jili">
-                    <span class="play-icon">🎮</span> ကစားမယ်
-                </a>
+        <!-- Header Navigation for Providers -->
+        <div class="provider-nav-wrapper">
+            <button id="prevProviderBtn" class="nav-arrow left-arrow">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 2L4 12L20 22Z" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <div class="provider-titles-slider" id="providerSlider">
+                <h3 class="title-item left" data-provider="pg">PG Soft</h3>
+                <h3 class="title-item active" data-provider="jili">JILI စလော့</h3>
+                <h3 class="title-item right" data-provider="pp">PP Slot</h3>
             </div>
+            <button id="nextProviderBtn" class="nav-arrow right-arrow">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 2L20 12L4 22Z" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
 
-            <!-- PG Column -->
+        <div class="game-card-container single-column" id="resultsContainer">
             <div class="provider-column">
-                <h3 class="column-title">PG Soft</h3>
-                <div class="carousel-container" id="carousel-pg"></div>
-                <button class="lock-btn" id="lock-pg" data-target="pg">
-                    <span class="lock-icon">🔓</span> Unlock
-                </button>
-                <a href="https://www.lugyiminn.com" target="_blank" class="play-btn" id="play-pg">
-                    <span class="play-icon">🎮</span> ကစားမယ်
-                </a>
+                <div class="carousel-container" id="main-carousel"></div>
             </div>
-
-            <!-- PP Column -->
-            <div class="provider-column">
-                <h3 class="column-title">PP Slot</h3>
-                <div class="carousel-container" id="carousel-pp"></div>
-                <button class="lock-btn" id="lock-pp" data-target="pp">
-                    <span class="lock-icon">🔓</span> Unlock
-                </button>
-                <a href="https://www.lugyiminn.com" target="_blank" class="play-btn" id="play-pp">
-                    <span class="play-icon">🎮</span> ကစားမယ်
-                </a>
-            </div>
-
-
         </div>
     </div>
 
@@ -69,6 +56,7 @@
     <!-- Data Source: Loaded dynamically via script.js -->
     <!-- App Logic -->
     <script src="script.js"></script>
+    <script src="background.js"></script>
 </body>
 
 </html>
